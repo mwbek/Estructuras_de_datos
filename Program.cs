@@ -11,9 +11,15 @@ class Program
 
         l.agregar(new TipoElemento(1));
         l.agregar(new TipoElemento(2));
+        l.agregar(new TipoElemento(3));
+        l.agregar(new TipoElemento(4));
 
         Console.WriteLine("Cantidad elementos: " + l.longitud());
 
+        l.mostrar_lista();
+
+
+        l.eliminar(1);
         l.mostrar_lista();
 
 

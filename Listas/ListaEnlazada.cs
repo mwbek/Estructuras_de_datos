@@ -8,6 +8,8 @@
         {
             public TipoElemento? _datos;
             public Nodo? _siguiente;
+
+            ~Nodo() { }
         }
 
 
@@ -84,10 +86,40 @@
         {
             //Si la posicion no es valida, salgo de la funcion
             if (pos < 0 || pos >= _cantidad) return;
+            if (es_vacia() || _inicio == null) return;
+            //Caso 1: Posicion 0
+            if(pos == 0)
+            {
+                //1) Muevo el segundo nodo al inicio
+                //2) Libero el nodo que elimino
+                _inicio = _inicio._siguiente;
+                
+            }
+            else
+            {
+                //1) Busco el nodo que voy a eliminar.
+                //2) Obtengo la direccion del nodo anterior
+                //3) Obtengo la direccion del nodo siguiente
+                //4) Conecto el nodo anterior con el siguiente
 
+                Nodo? aux = _inicio;
 
+                for(int i = 0; i < pos - 1; i++)
+                {
+                    if (aux._siguiente == null) return;
+                    aux = aux._siguiente;
+                }
 
+                //La variable "aux" esta una posicion anterior al nodo a eliminar
 
+                //La variable "aux2" esta en la posicion siguiente al nodo a eliminar
+                Nodo? aux2 = aux._siguiente?._siguiente;
+
+                //Conecto el nodo anterior con el siguiente
+                aux._siguiente = aux2;
+            }
+
+            _cantidad--;
         }
 
         public TipoElemento? recuperar(int pos)
