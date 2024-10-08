@@ -23,6 +23,22 @@ class Program
         l.mostrar_lista();
 
 
+        l.agregar(new TipoElemento(7));
+        l.agregar(new TipoElemento(5));
+        l.agregar(new TipoElemento(7));
+        l.agregar(new TipoElemento(18));
+        l.agregar(new TipoElemento(1));
+
+        l.mostrar_lista();
+
+        l.borrar(7);
+
+        l.mostrar_lista();
+
+        l.borrar(1);
+
+        l.mostrar_lista();
+
 
 
 
