@@ -1,9 +1,11 @@
 ﻿namespace Estructuras_de_datos
 {
-    public class TipoElemento : ITipoElemento
+    public class TipoElemento
     {
         private int _clave;
         private object? _valor;
+
+
 
         public TipoElemento(int clave)
         {
@@ -18,8 +20,8 @@
         }
 
         //Getters
-        public int GetClave() { return _clave; }
-        public object? GetValor() { return _valor; }
+        public int Clave { get { return _clave; } }
+        public object? Valor {  get { return _valor; } }
 
        
     }
