@@ -66,21 +66,6 @@
 
         }
 
-        public void borrar(int clave)
-        {
-            throw new NotImplementedException();
-        }
-
-        public TipoElemento? buscar(int clave)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void insertar(TipoElemento elemento, int pos)
-        {
-            throw new NotImplementedException();
-        }
-
         //Elimina la posicion pasada por parametro
         public void eliminar(int pos)
         {
@@ -88,12 +73,12 @@
             if (pos < 0 || pos >= _cantidad) return;
             if (es_vacia() || _inicio == null) return;
             //Caso 1: Posicion 0
-            if(pos == 0)
+            if (pos == 0)
             {
                 //1) Muevo el segundo nodo al inicio
                 //2) Libero el nodo que elimino
                 _inicio = _inicio._siguiente;
-                
+
             }
             else
             {
@@ -104,7 +89,7 @@
 
                 Nodo? aux = _inicio;
 
-                for(int i = 0; i < pos - 1; i++)
+                for (int i = 0; i < pos - 1; i++)
                 {
                     if (aux._siguiente == null) return;
                     aux = aux._siguiente;
@@ -122,6 +107,72 @@
             _cantidad--;
         }
 
+        /*
+        Borra un elemento de la lista. Recibe como parametro la lista y la clave a borrar
+        En caso de tener claves repetidas borrara todas las ocurrencias
+        */
+        public void borrar(int clave)
+        {
+
+            if(es_vacia()) return;
+
+            Nodo? actual = _inicio;
+
+            //Caso 1: El primer elemento se debe borrar
+            if(actual?._datos?.Clave == clave)
+            {
+                _inicio = actual._siguiente;
+                actual = _inicio;
+            }
+
+            //Caso 2: Se debe borrar otro elemento
+            while (actual != null)
+            {
+                Nodo? temp = actual; //Guardo el nodo anterior en caso de entrar al IF
+                if(actual?._siguiente?._datos?.Clave == clave)
+                {
+                    //Debo borrar el nodo donde se encuentra el programa
+                    actual = actual._siguiente; //Este desaparece
+                    temp._siguiente = actual._siguiente;
+                }
+
+                actual = actual?._siguiente;
+            }
+
+            
+
+
+            _cantidad--;
+
+        }
+
+        /* Busca un elemento en la lista recorriendola, si hay repetidos retorna la primer ocurrencia
+           y si la clave a buscar no existe retorna NULL
+        */
+
+        public TipoElemento? buscar(int clave)
+        {
+            //Validaciones
+            if(es_vacia()) return null;
+
+            Nodo? aux = _inicio;
+
+            while(aux != null)
+            {
+                TipoElemento? te = aux._datos;
+                if (te?.Clave == clave) return te;
+                aux = aux._siguiente;
+            }
+
+            return null;
+        }
+
+        public void insertar(TipoElemento elemento, int pos)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public TipoElemento? recuperar(int pos)
         {
             throw new NotImplementedException();
@@ -134,7 +185,7 @@
             while (aux != null)
             {
                 if (aux._datos == null) break;
-                Console.Write(aux._datos.GetClave() + " ");
+                Console.Write(aux._datos.Clave + " ");
                 aux = aux._siguiente;
             }
             Console.Write("]\n");

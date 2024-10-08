@@ -1,7 +1,7 @@
 ﻿namespace Estructuras_de_datos.Listas
 {
 
-    internal class Iterador : IIterador
+    file class Iterador : IIterador
     {
         private IListas _lista;
         private int _posicion_actual = 0;
@@ -93,7 +93,7 @@
 
                 TipoElemento x = _valores[pos];
                 //Si la clave coincido, borro y muevo todo una posicion atras
-                if (x.GetClave() == clave)
+                if (x.Clave == clave)
                 {
                     //Desplazo todo el arreglo a la izquierda
                     for (int i = pos; i < _cantidad - 1; i++)
@@ -127,7 +127,7 @@
                 {
                     TipoElemento x = _valores[i];
 
-                    if (x.GetClave() == clave) return x;
+                    if (x.Clave == clave) return x;
                 }
             }
 
@@ -200,7 +200,7 @@
                 Console.Write("Lista de arreglos: [ ");
                 for (int i = 0; i < _cantidad; i++)
                 {
-                    Console.Write(_valores[i].GetClave() + " ");
+                    Console.Write(_valores[i].Clave + " ");
                 }
                 Console.Write("]\n");
             }

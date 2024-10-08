@@ -9,8 +9,8 @@
         bool es_llena();
         int longitud();
         void agregar(TipoElemento elemento);
-        void borrar(int clave);
         TipoElemento? buscar(int clave);
+        void borrar(int clave);
         void insertar(TipoElemento elemento, int pos);
         void eliminar(int pos);
         TipoElemento? recuperar(int pos);
