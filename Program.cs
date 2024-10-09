@@ -14,33 +14,20 @@ class Program
         l.agregar(new TipoElemento(3));
         l.agregar(new TipoElemento(4));
 
-        Console.WriteLine("Cantidad elementos: " + l.longitud());
 
         l.mostrar_lista();
 
-
-        l.eliminar(1);
+        l.insertar(new TipoElemento(5), 0);
         l.mostrar_lista();
 
-
-        l.agregar(new TipoElemento(7));
-        l.agregar(new TipoElemento(5));
-        l.agregar(new TipoElemento(7));
-        l.agregar(new TipoElemento(18));
-        l.agregar(new TipoElemento(1));
-
+        l.insertar(new TipoElemento(6), 2);
         l.mostrar_lista();
 
-        l.borrar(7);
-
+        l.insertar(new TipoElemento(7), 6);
         l.mostrar_lista();
 
-        l.borrar(1);
-
+        l.insertar(new TipoElemento(8), 10);
         l.mostrar_lista();
-
-
-
 
         return 0;
 

@@ -169,7 +169,43 @@
 
         public void insertar(TipoElemento elemento, int pos)
         {
-            throw new NotImplementedException();
+            if (es_llena()) return;
+            if (pos < 0 || pos >= _tamanio_maximo) return;
+
+            //Creo el nodo nuevo
+            Nodo nuevo_nodo = new Nodo();
+            nuevo_nodo._datos = elemento;
+            nuevo_nodo._siguiente = null;
+
+            Nodo? aux = _inicio;
+
+            //Caso 1: La posicion excede la cantidad de elementos, agrego al final
+            if(pos >= _cantidad)
+            {
+                agregar(elemento);
+                return;
+            }
+            //Caso 2: Inserto en la posicion 0
+            else if(pos == 0)
+            {
+                nuevo_nodo._siguiente = _inicio;
+                _inicio = nuevo_nodo;
+            }
+            else
+            {
+                //Me muevo hasta llegar al nodo anterior a donde tengo que insertar
+                for(int i = 0; i < pos - 1; i++)
+                {
+                    aux = aux?._siguiente;
+                }
+
+                //El nodo donde estoy debe apuntar al nuevo, y el nuevo a donde esta apuntando
+                //el nodo anterior
+                nuevo_nodo._siguiente = aux?._siguiente;
+                aux._siguiente = nuevo_nodo;
+
+            }
+            _cantidad++;
         }
 
 
