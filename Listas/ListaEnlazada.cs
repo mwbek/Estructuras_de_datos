@@ -2,27 +2,41 @@
 {
 
 
-    public class ListaEnlazada : IListas
+
+
+    public class ListaEnlazada : IListas, IIterador
     {
-        private class Nodo
+        public class Nodo
         {
             public TipoElemento? _datos;
             public Nodo? _siguiente;
 
+            //Destructor
             ~Nodo() { }
         }
+
+
 
 
         private int _cantidad;
         private readonly int _tamanio_maximo;
         private Nodo? _inicio;
-
+        private Nodo? _posicion_actual;
         //Contructor de la lista
         public ListaEnlazada()
         {
             _cantidad = 0;
             _tamanio_maximo = IListas.tamanio_maximo;
             _inicio = null;
+        }
+
+        //Sobrecarga de constructor
+        public ListaEnlazada(int tamanio_maximo)
+        {
+            _cantidad = 0;
+            _tamanio_maximo = tamanio_maximo;
+            _inicio = null;
+            _posicion_actual = _inicio;
         }
 
         public bool es_vacia()
@@ -201,17 +215,30 @@
 
                 //El nodo donde estoy debe apuntar al nuevo, y el nuevo a donde esta apuntando
                 //el nodo anterior
+                
                 nuevo_nodo._siguiente = aux?._siguiente;
+                if (aux == null) return;
                 aux._siguiente = nuevo_nodo;
 
             }
             _cantidad++;
         }
 
-
         public TipoElemento? recuperar(int pos)
         {
-            throw new NotImplementedException();
+            if (pos < 0 || pos >= _tamanio_maximo) return null;
+            if (es_vacia()) return null;
+
+            Nodo? actual = _inicio;
+
+            for (int i = 0; i < pos; i++)
+            {
+
+               actual = actual?._siguiente;
+                
+                
+            }
+            return actual?._datos;
         }
 
         public void mostrar_lista()
@@ -227,5 +254,21 @@
             Console.Write("]\n");
             
         }
+
+        //Funcion interador
+        public bool hay_siguiente()
+        {
+           //Mientras la posicion actual no sea null significa que hay un dato mas
+            return _posicion_actual != null;
+        }
+
+        public TipoElemento? siguiente()
+        {
+            TipoElemento? dato = _posicion_actual?._datos;
+            //Muevo una posicion la posicionActual
+            _posicion_actual = _posicion_actual?._siguiente;
+            return dato;
+        }
+
     }
 }

@@ -1,39 +1,19 @@
 ﻿namespace Estructuras_de_datos.Listas
 {
 
-    file class Iterador : IIterador
-    {
-        private IListas _lista;
-        private int _posicion_actual = 0;
-        public Iterador(IListas lista)
-        {
-            _lista = lista;
-        }
-
-        public bool hay_siguiente()
-        {
-            //Mientras la posicion actual sea menor a la longitud significa que hay otro elemento mas
-            return _posicion_actual < _lista.longitud();
-        }
-
-        public TipoElemento? siguiente()
-        {
-            return _lista.recuperar(_posicion_actual++);
-        }
-
-    }
 
 
 
 
 
-    public class ListaArreglos : IListas
+
+    public class ListaArreglos : IListas, IIterador
     {
 
         private TipoElemento[] _valores;
         private int _cantidad;
         private readonly int _tamanio_maximo;
-
+        private int _posicion_actual;
 
 
         public ListaArreglos()
@@ -204,6 +184,18 @@
                 }
                 Console.Write("]\n");
             }
+        }
+
+        //Funcion iterador
+        public bool hay_siguiente()
+        {
+            //Mientras la posicion actual sea menor a la longitud significa que hay otro elemento mas
+            return _posicion_actual < _cantidad;
+        }
+
+        public TipoElemento? siguiente()
+        {
+            return _valores[_posicion_actual++];
         }
 
     }

@@ -15,19 +15,12 @@ class Program
         l.agregar(new TipoElemento(4));
 
 
-        l.mostrar_lista();
+        while (l.hay_siguiente())
+        {
+            Console.WriteLine(l.siguiente()?.Clave);
 
-        l.insertar(new TipoElemento(5), 0);
-        l.mostrar_lista();
+        }
 
-        l.insertar(new TipoElemento(6), 2);
-        l.mostrar_lista();
-
-        l.insertar(new TipoElemento(7), 6);
-        l.mostrar_lista();
-
-        l.insertar(new TipoElemento(8), 10);
-        l.mostrar_lista();
 
         return 0;
 
