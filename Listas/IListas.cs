@@ -1,7 +1,10 @@
-﻿namespace Estructuras_de_datos.Listas
+﻿using Estructuras_de_datos.Tipo_de_dato;
+using System.Collections;
+
+namespace Estructuras_de_datos.Listas
 {
 
-    public interface IListas
+    public interface IListas : IEnumerable
     {
         const int tamanio_maximo = 100;
 
@@ -18,11 +21,5 @@
 
     }
 
-
-    public interface IIterador
-    {
-        bool hay_siguiente();
-        TipoElemento? siguiente();
-    }
 
 }

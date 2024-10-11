@@ -1,13 +1,11 @@
-﻿namespace Estructuras_de_datos.Listas
+﻿using Estructuras_de_datos.Tipo_de_dato;
+using System.Collections;
+
+namespace Estructuras_de_datos.Listas
 {
 
 
-
-
-
-
-
-    public class ListaArreglos : IListas, IIterador
+    public class ListaArreglos : IListas, IEnumerable
     {
 
         private TipoElemento[] _valores;
@@ -186,17 +184,36 @@
             }
         }
 
-        //Funcion iterador
-        public bool hay_siguiente()
+        public IEnumerator GetEnumerator()
         {
-            //Mientras la posicion actual sea menor a la longitud significa que hay otro elemento mas
-            return _posicion_actual < _cantidad;
+            return new ListaArreglos_Iterador(this);
+        }
+    }
+
+    file class ListaArreglos_Iterador : IEnumerator
+    {
+        private int _posicion_actual;
+        ListaArreglos _lista;
+        public ListaArreglos_Iterador(ListaArreglos lista)
+        {
+            _lista = lista;
+            _posicion_actual = -1;
+        }
+        public TipoElemento? Current => _lista.recuperar(_posicion_actual);
+
+        public bool MoveNext()
+        {
+            _posicion_actual++;
+            return _posicion_actual < _lista.longitud();
         }
 
-        public TipoElemento? siguiente()
+        public void Reset()
         {
-            return _valores[_posicion_actual++];
+            _posicion_actual = -1;
         }
 
+        Object? IEnumerator.Current => Current;
+
+        
     }
 }

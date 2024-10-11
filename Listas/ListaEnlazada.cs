@@ -1,27 +1,18 @@
-﻿namespace Estructuras_de_datos.Listas
+﻿using Estructuras_de_datos.Tipo_de_dato;
+using System.Collections;
+
+namespace Estructuras_de_datos.Listas
 {
 
-
-
-
-    public class ListaEnlazada : IListas, IIterador
+    public class ListaEnlazada :  IListas, IEnumerable
     {
-        public class Nodo
-        {
-            public TipoElemento? _datos;
-            public Nodo? _siguiente;
-
-            //Destructor
-            ~Nodo() { }
-        }
-
-
-
 
         private int _cantidad;
         private readonly int _tamanio_maximo;
-        private Nodo? _inicio;
-        private Nodo? _posicion_actual;
+        public Nodo? _inicio;
+
+
+
         //Contructor de la lista
         public ListaEnlazada()
         {
@@ -36,7 +27,7 @@
             _cantidad = 0;
             _tamanio_maximo = tamanio_maximo;
             _inicio = null;
-            _posicion_actual = _inicio;
+
         }
 
         public bool es_vacia()
@@ -64,7 +55,11 @@
             nuevo_nodo._siguiente = null;
 
             //Si el inicio es nulo, lo agrego primero
-            if(_inicio == null) _inicio = nuevo_nodo;
+            if(_inicio == null)
+            {
+                _inicio = nuevo_nodo;
+
+            }
             else
             {
                 //Busco el ultimo nodo vacio y lo agrego
@@ -75,6 +70,8 @@
                 }
                 aux._siguiente = nuevo_nodo;
             }
+
+
 
             _cantidad++;
 
@@ -121,10 +118,8 @@
             _cantidad--;
         }
 
-        /*
-        Borra un elemento de la lista. Recibe como parametro la lista y la clave a borrar
-        En caso de tener claves repetidas borrara todas las ocurrencias
-        */
+        /*Borra un elemento de la lista. Recibe como parametro la lista y la clave a borrar
+        En caso de tener claves repetidas borrara todas las ocurrencias*/
         public void borrar(int clave)
         {
 
@@ -163,7 +158,6 @@
         /* Busca un elemento en la lista recorriendola, si hay repetidos retorna la primer ocurrencia
            y si la clave a buscar no existe retorna NULL
         */
-
         public TipoElemento? buscar(int clave)
         {
             //Validaciones
@@ -204,6 +198,7 @@
             {
                 nuevo_nodo._siguiente = _inicio;
                 _inicio = nuevo_nodo;
+
             }
             else
             {
@@ -255,20 +250,60 @@
             
         }
 
-        //Funcion interador
-        public bool hay_siguiente()
+        public IEnumerator GetEnumerator()
         {
-           //Mientras la posicion actual no sea null significa que hay un dato mas
+            return new ListaEnlazada_Iterador(_inicio);
+        }
+    }
+
+
+
+    file class ListaEnlazada_Iterador : IEnumerator
+    {
+
+        private Nodo? _posicion_actual;
+        private Nodo? _inicio;
+
+
+        public TipoElemento? Posicion_Actual
+        {
+            get
+            {
+                if(_posicion_actual != null)
+                {
+                    return _posicion_actual._datos;
+                }
+                return null;
+            }
+        }
+
+
+
+        public ListaEnlazada_Iterador(Nodo? inicio)
+        {
+            _inicio = inicio;
+            _posicion_actual = null;
+        }
+
+
+        public object? Current => Posicion_Actual;
+
+        public bool MoveNext()
+        {
+            if( _posicion_actual == null)
+            {
+                _posicion_actual = _inicio;
+            }
+            else
+            {
+                _posicion_actual = _posicion_actual._siguiente;
+            }
             return _posicion_actual != null;
         }
 
-        public TipoElemento? siguiente()
+        public void Reset()
         {
-            TipoElemento? dato = _posicion_actual?._datos;
-            //Muevo una posicion la posicionActual
-            _posicion_actual = _posicion_actual?._siguiente;
-            return dato;
+            _posicion_actual = null;
         }
-
     }
 }
