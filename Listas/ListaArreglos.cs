@@ -5,81 +5,89 @@ namespace Estructuras_de_datos.Listas
 {
 
 
-    public class ListaArreglos : IListas, IEnumerable
+    public class ListaArreglos<T> : IListas<T>, IEnumerable
     {
 
-        private TipoElemento[] _valores;
-        private int _cantidad;
+        private T[] _valores;
+        private int _capacidad;
         private readonly int _tamanio_maximo;
         private int _posicion_actual;
 
+        public int Capacidad => _capacidad;
 
         public ListaArreglos()
         {
-            _valores = new TipoElemento[IListas.tamanio_maximo];
-            _cantidad = 0;
-            _tamanio_maximo = IListas.tamanio_maximo;
+            _valores = new T[IListas<T>.tamanio_maximo];
+            _capacidad = 0;
+            _tamanio_maximo = IListas<T>.tamanio_maximo;
         }
 
         //Sobrecarga de constructor
         public ListaArreglos(int longitud)
         {
-            _valores = new TipoElemento[longitud];
-            _cantidad = 0;
+            _valores = new T[longitud];
+            _capacidad = 0;
             _tamanio_maximo = longitud;
         }
 
-        public bool es_llena()
-        {
-            return _cantidad == _tamanio_maximo;
-        }
-        public bool es_vacia()
-        {
-            return _cantidad == 0;
-        }
-        public int longitud()
-        {
-            return _cantidad;
-        }
 
-
-        /// <summary>
-        /// Agrega un elemento al final de la lista
-        /// </summary>
-        /// <param name="elemento"></param>
-        public void agregar(TipoElemento elemento)
+        public T this[int index]
         {
-            if (es_llena() == false)
+            get
             {
-                _valores[_cantidad] = elemento;
-                _cantidad++;
+                return _valores[index];
+            }
+            set
+            {
+                _valores[index] = value;
             }
         }
 
-        /// <summary>
-        /// Elimina todas las ocurrencias de una clave
-        /// </summary>
-        /// <param name="clave"></param>
-        public void borrar(int clave)
+
+
+
+
+        private bool Es_llena()
         {
-            if (es_llena()) return;
+            return _capacidad == _tamanio_maximo;
+        }
+        private bool Es_vacia()
+        {
+            return _capacidad == 0;
+        }
+
+
+
+        public void Agregar(T elemento)
+        {
+            if (Es_llena() == false)
+            {
+                _valores[_capacidad] = elemento;
+                _capacidad++;
+            }
+        }
+
+
+        public void BorrarTodos(T elemento)
+        {
+            if (Es_llena()) return;
 
             int pos = 0;
 
-            while (pos < _cantidad)
+            while (pos < _capacidad)
             {
 
-                TipoElemento x = _valores[pos];
-                //Si la clave coincido, borro y muevo todo una posicion atras
-                if (x.Clave == clave)
+                T x = _valores[pos];
+                //Si el elemento coincide, borro y muevo todo una posicion atras
+                if (x != null && x.Equals(elemento))
                 {
                     //Desplazo todo el arreglo a la izquierda
-                    for (int i = pos; i < _cantidad - 1; i++)
+                    for (int i = pos; i < _capacidad - 1; i++)
                     {
                         _valores[i] = _valores[i + 1];
 
                     }
-                    _cantidad--;
+                    _capacidad--;
                 }
                 else
                 {
@@ -88,65 +96,51 @@ namespace Estructuras_de_datos.Listas
             }
         }
 
-        /// <summary>
-        /// Busca un elemento en la lista recorriendola 
-        /// </summary>
-        /// <param name="clave"></param>
-        /// <returns>
-        /// Si hay repetidos retorna la primer ocurrencia
-        /// Si la clave a buscar no existe retorna NULL
-        /// </returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public TipoElemento? buscar(int clave)
+        public T? Buscar(T elemento)
         {
-            if (es_vacia() == false)
+            if (Es_vacia() == false)
             {
-                for (int i = 0; i < _cantidad; i++)
+                for (int i = 0; i < _capacidad; i++)
                 {
-                    TipoElemento x = _valores[i];
+                    T x = _valores[i];
 
-                    if (x.Clave == clave) return x;
+                    if (x!= null && x.Equals(elemento)) return x;
                 }
             }
 
-            return null;
+            //En los genericos no puedo retornar NULL, pero puedo retornar Default(T)
+            return default(T);
         }
 
-        /// <summary>
-        ///     Elimina una posicion de la lista sin importar el dato que esta en esa posicion
-        ///     A diferencia de la funcion "borrar" este no borra todas las ocurrencias
-        /// </summary>
-        /// <param name="pos"></param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void eliminar(int pos)
+        public void Borrar(int pos)
         {
 
-            if (es_vacia() == false)
+            if (Es_vacia() == false)
             {
-                if (pos >= 0 && pos < _cantidad)
+                if (pos >= 0 && pos < _capacidad)
                 {
-                    for (int i = pos; i < _cantidad - 1; i++)
+                    for (int i = pos; i < _capacidad - 1; i++)
                     {
                         _valores[i] = _valores[i + 1];
                     }
-                    _cantidad--;
+                    _capacidad--;
                 }
             }
         }
 
-        public void insertar(TipoElemento elemento, int pos)
+        public void Insertar(T elemento, int pos)
         {
 
-            if (es_llena() == false)
+            if (Es_llena() == false)
             {
                 if (pos >= 0 && pos <= _tamanio_maximo)
                 {
-                    for (int i = _cantidad - 1; i >= pos && i >= 0; i--)
+                    for (int i = _capacidad - 1; i >= pos && i >= 0; i--)
                     {
                         _valores[i + 1] = _valores[i];
                     }
                     _valores[pos] = elemento;
-                    _cantidad++;
+                    _capacidad++;
                 }
 
             }
@@ -154,31 +148,26 @@ namespace Estructuras_de_datos.Listas
         }
 
 
-        /// <summary>
-        /// Retorna el elemento en la posicion pasada por parametro
-        /// </summary>
-        /// <param name="pos"></param>
-        /// <returns></returns>
-        public TipoElemento? recuperar(int pos)
+        public T? Recuperar(int pos)
         {
-            if (es_vacia() == false)
+            if (Es_vacia() == false)
             {
-                if (pos >= 0 && pos < _cantidad)
+                if (pos >= 0 && pos < _capacidad)
                 {
                     return _valores[pos];
                 }
             }
-            return null;
+            return default(T);
         }
 
-        public void mostrar_lista()
+        public void Mostrar_lista()
         {
-            if (_cantidad > 0)
+            if (_capacidad > 0)
             {
                 Console.Write("Lista de arreglos: [ ");
-                for (int i = 0; i < _cantidad; i++)
+                for (int i = 0; i < _capacidad; i++)
                 {
-                    Console.Write(_valores[i].Clave + " ");
+                    Console.Write(_valores[i]?.ToString() + " ");
                 }
                 Console.Write("]\n");
             }
@@ -186,25 +175,26 @@ namespace Estructuras_de_datos.Listas
 
         public IEnumerator GetEnumerator()
         {
-            return new ListaArreglos_Iterador(this);
+            return new ListaArreglos_Iterador<T>(this);
         }
     }
 
-    file class ListaArreglos_Iterador : IEnumerator
+    file class ListaArreglos_Iterador<T> : IEnumerator
     {
         private int _posicion_actual;
-        ListaArreglos _lista;
-        public ListaArreglos_Iterador(ListaArreglos lista)
+        ListaArreglos<T> _lista;
+        
+        public ListaArreglos_Iterador(ListaArreglos<T> lista)
         {
             _lista = lista;
             _posicion_actual = -1;
         }
-        public TipoElemento? Current => _lista.recuperar(_posicion_actual);
+        public T? Current => _lista[_posicion_actual];
 
         public bool MoveNext()
         {
             _posicion_actual++;
-            return _posicion_actual < _lista.longitud();
+            return _posicion_actual < _lista.Capacidad;
         }
 
         public void Reset()

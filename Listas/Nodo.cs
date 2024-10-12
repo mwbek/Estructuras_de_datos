@@ -4,10 +4,10 @@ using System.Collections;
 
 namespace Estructuras_de_datos.Listas
 {
-    public class Nodo
+    public class Nodo<T>
     {
-        public TipoElemento? _datos;
-        public Nodo? _siguiente;
+        public T? _datos;
+        public Nodo<T>? _siguiente;
 
     }
 

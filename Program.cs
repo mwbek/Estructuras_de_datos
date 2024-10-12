@@ -1,6 +1,7 @@
 ﻿using Estructuras_de_datos;
 using Estructuras_de_datos.Listas;
 using Estructuras_de_datos.Tipo_de_dato;
+using System.Xml.Linq;
 
 
 class Program
@@ -8,35 +9,26 @@ class Program
     public static int Main()
     {
 
-        ListaEnlazada l = new ListaEnlazada();
 
-        l.agregar(new TipoElemento(1));
-        l.agregar(new TipoElemento(2));
-        l.agregar(new TipoElemento(3));
-        l.agregar(new TipoElemento(4));
+        ListaEnlazada<int> l = new ListaEnlazada<int>();
 
-        l.mostrar_lista();
+        l.Agregar(1);
+        l.Agregar(2);
+        l.Agregar(3);
+        l.Agregar(4);
+        l.Agregar(3);
+        l.Agregar(3);
 
-        foreach (TipoElemento x in l)
-        {
-            Console.WriteLine(x.Clave);
-        }
-        //=====================
-        ListaArreglos la = new ListaArreglos();
-        la.agregar(new TipoElemento(1));
-        la.agregar(new TipoElemento(2));
-        la.agregar(new TipoElemento(3));
-        la.agregar(new TipoElemento(4));
+        l.Mostrar_lista();
 
-        la.mostrar_lista();
+        l.Borrar(2);
 
-        foreach (TipoElemento x in la)
-        {
-            Console.WriteLine(x.Clave);
-        }
+        l.Mostrar_lista();
+
+        l.BorrarTodos(3);
+        l.Mostrar_lista();
 
 
-        
 
 
         return 0;
