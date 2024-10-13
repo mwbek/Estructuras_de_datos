@@ -32,6 +32,39 @@ namespace Estructuras_de_datos.Listas
 
         public int Capacidad => _capacidad;
 
+
+        public T? this[int Index]
+        {
+            get
+            {
+                if (Es_vacia() == false)
+                {
+                    if (Index >= 0 && Index < _capacidad)
+                    {
+                        return Recuperar(Index)!; //El signo de exclamacion (!) le indica al compilador que nosotros estamos seguros que nunca va a retornar un null
+                    }
+                }
+                throw new ArgumentOutOfRangeException("Index fuera de rango");
+            }
+            set
+            {
+                if (Index >= 0 && Index < _capacidad)
+                {
+                    Insertar(value!, Index);
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("Index fuera de rango");
+                }
+
+                
+            }
+        }
+
+
+
+
+
         public bool Es_vacia()
         {
             return _capacidad == 0;
@@ -47,9 +80,12 @@ namespace Estructuras_de_datos.Listas
             if (Es_llena()) return;
 
             //Creo un nodo nuevo
-            Nodo<T> nuevo_nodo = new Nodo<T>();
-            nuevo_nodo._datos = elemento;
-            nuevo_nodo._siguiente = null;
+            Nodo<T> nuevo_nodo = new Nodo<T>
+            {
+                _datos = elemento,
+                _siguiente = null
+            };
+
 
             //Si el inicio es nulo, lo agrego primero
             if(_inicio == null)
@@ -123,34 +159,30 @@ namespace Estructuras_de_datos.Listas
             if(Es_vacia() || _inicio == null) return;
             Nodo<T>? actual = _inicio;
 
-            if (actual._datos == null) return;
             //Caso 1: El primer elemento se debe borrar
-            if(actual._datos.Equals(elemento))
+            if(actual != null && actual._datos!.Equals(elemento))
             {
                 _inicio = actual._siguiente;
                 actual = _inicio;
+                _capacidad--;
             }
 
             //Caso 2: Se debe borrar otro elemento
-            while (actual != null)
+            while (actual != null && actual._siguiente != null)
             {
-                Nodo<T>? temp = actual; //Guardo el nodo anterior en caso de entrar al IF
 
-                if(actual._siguiente != null && actual._siguiente._datos.Equals(elemento))
+                if (actual._siguiente._datos!.Equals(elemento))
                 {
+                    Nodo<T> temp = actual._siguiente; //Guardo el nodo anterior
                     //Debo borrar el nodo donde se encuentra el programa
-                    actual = actual._siguiente; //Este desaparece
-                    temp._siguiente = actual._siguiente;
+                    actual._siguiente = temp._siguiente;
+                    _capacidad--;
                 }
-
-                actual = actual?._siguiente;
+                else
+                {
+                    actual = actual?._siguiente;
+                }                
             }
-
-            
-
-
-            _capacidad--;
-
         }
 
         /* Busca un elemento en la lista recorriendola, si hay repetidos retorna la primer ocurrencia
@@ -159,18 +191,18 @@ namespace Estructuras_de_datos.Listas
         public T? Buscar(T elemento)
         {
             //Validaciones
-            if(Es_vacia()) return default(T);
+            if(Es_vacia()) return default;
 
             Nodo<T>? aux = _inicio;
 
             while(aux != null)
             {
                 T? te = aux._datos;
-                if (te.Equals(elemento)) return te;
+                if (te != null && te.Equals(elemento)) return te;
                 aux = aux._siguiente;
             }
 
-            return default(T);
+            return default;
         }
 
         public void Insertar(T elemento, int pos)
@@ -179,9 +211,13 @@ namespace Estructuras_de_datos.Listas
             if (pos < 0 || pos >= _tamanio_maximo) return;
 
             //Creo el nodo nuevo
-            Nodo<T> nuevo_nodo = new Nodo<T>();
-            nuevo_nodo._datos = elemento;
-            nuevo_nodo._siguiente = null;
+            Nodo<T> nuevo_nodo = new Nodo<T>
+            {
+                _datos = elemento,
+                _siguiente = null
+            };
+
+
 
             Nodo<T>? aux = _inicio;
 
@@ -219,8 +255,8 @@ namespace Estructuras_de_datos.Listas
 
         public T? Recuperar(int pos)
         {
-            if (pos < 0 || pos >= _tamanio_maximo) return default(T);
-            if (Es_vacia()) return default(T);
+            if (pos < 0 || pos >= _tamanio_maximo) return default;
+            if (Es_vacia()) return default;
 
             Nodo<T>? actual = _inicio;
 
@@ -231,7 +267,7 @@ namespace Estructuras_de_datos.Listas
                 
                 
             }
-            if(actual == null) return default(T);
+            if(actual == null) return default;
             return actual._datos;
         }
 
@@ -262,7 +298,7 @@ namespace Estructuras_de_datos.Listas
     {
 
         private Nodo<T>? _posicion_actual;
-        private Nodo<T>? _inicio;
+        private readonly Nodo<T>? _inicio;
 
 
         public T? Posicion_Actual
@@ -273,7 +309,7 @@ namespace Estructuras_de_datos.Listas
                 {
                     return _posicion_actual._datos;
                 }
-                return default(T);
+                return default;
             }
         }
 

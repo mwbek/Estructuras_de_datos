@@ -8,10 +8,9 @@ namespace Estructuras_de_datos.Listas
     public class ListaArreglos<T> : IListas<T>, IEnumerable
     {
 
-        private T[] _valores;
+        private readonly T[] _valores;
         private int _capacidad;
         private readonly int _tamanio_maximo;
-        private int _posicion_actual;
 
         public int Capacidad => _capacidad;
 
@@ -42,9 +41,6 @@ namespace Estructuras_de_datos.Listas
                 _valores[index] = value;
             }
         }
-
-
-
 
 
         private bool Es_llena()
@@ -109,7 +105,7 @@ namespace Estructuras_de_datos.Listas
             }
 
             //En los genericos no puedo retornar NULL, pero puedo retornar Default(T)
-            return default(T);
+            return default;
         }
 
         public void Borrar(int pos)
@@ -157,7 +153,7 @@ namespace Estructuras_de_datos.Listas
                     return _valores[pos];
                 }
             }
-            return default(T);
+            return default;
         }
 
         public void Mostrar_lista()
@@ -182,7 +178,7 @@ namespace Estructuras_de_datos.Listas
     file class ListaArreglos_Iterador<T> : IEnumerator
     {
         private int _posicion_actual;
-        ListaArreglos<T> _lista;
+        private readonly ListaArreglos<T> _lista;
         
         public ListaArreglos_Iterador(ListaArreglos<T> lista)
         {

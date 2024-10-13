@@ -10,7 +10,7 @@ class Program
     {
 
 
-        ListaEnlazada<int> l = new ListaEnlazada<int>();
+        ListaArreglos<int> l = new ListaArreglos<int>();
 
         l.Agregar(1);
         l.Agregar(2);
@@ -18,18 +18,57 @@ class Program
         l.Agregar(4);
         l.Agregar(3);
         l.Agregar(3);
+        l.Agregar(11);
+        l.Agregar(11);
 
+
+        Console.Write("Lista original: ");
         l.Mostrar_lista();
-
-        l.Borrar(2);
-
+        Console.WriteLine("=======================================");
+        l.Borrar(0);
+        Console.WriteLine("Test 01\n Borrado pos 0");
         l.Mostrar_lista();
-
-        l.BorrarTodos(3);
+        Console.WriteLine("=======================================");
+        l.Borrar(3);
+        Console.WriteLine("Test 02\n Borrado pos 3");
         l.Mostrar_lista();
-
-
-
+        Console.WriteLine("=======================================");
+        l.Borrar(l.Capacidad-1);
+        Console.WriteLine("Test 03\n Borrado pos final");
+        l.Mostrar_lista();
+        Console.WriteLine("=======================================");
+        l.Insertar(11,0);
+        Console.WriteLine("Test 04\n Insertar pos 0");
+        l.Mostrar_lista();
+        Console.WriteLine("=======================================");
+        l.Insertar(22, 3);
+        Console.WriteLine("Test 05\n Insertar pos 3");
+        l.Mostrar_lista();
+        Console.WriteLine("=======================================");
+        l.Insertar(33,l.Capacidad);
+        Console.WriteLine("Test 06\n Insertar pos final");
+        l.Mostrar_lista();
+        Console.WriteLine("=======================================");
+        int x =l.Buscar(4);
+        Console.WriteLine("Test 07\n Buscar: " + x.ToString());
+        l.Mostrar_lista();
+        Console.WriteLine("=======================================");
+        x =l.Buscar(80);
+        Console.WriteLine("Test 08\n Buscar dato inexistente: " + x.ToString());
+        l.Mostrar_lista();
+        Console.WriteLine("=======================================");
+        x = l.Recuperar(4);
+        Console.WriteLine("Test 09\n Recuperar 4: " + x.ToString());
+        l.Mostrar_lista();
+        Console.WriteLine("=======================================");
+        x = l.Buscar(80);
+        Console.WriteLine("Test 10\n Recuperar dato inexistente: "+ x.ToString());
+        l.Mostrar_lista();
+        Console.WriteLine("=======================================");
+        l.BorrarTodos(11);
+        Console.WriteLine("Test 10\n Borrar todos los 11: "+ x.ToString());
+        l.Mostrar_lista();
+        Console.WriteLine("=======================================");
 
         return 0;
 

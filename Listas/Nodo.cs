@@ -6,7 +6,7 @@ namespace Estructuras_de_datos.Listas
 {
     public class Nodo<T>
     {
-        public T? _datos;
+        public required T _datos;
         public Nodo<T>? _siguiente;
 
     }
