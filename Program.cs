@@ -85,18 +85,24 @@ class Program
 
         listaCursores.Mostrar_lista();
 
+        listaCursores.Borrar(1);
+        listaCursores.Mostrar_lista();
+
+        listaCursores.Borrar(4);
+
+        listaCursores.Mostrar_lista();
+
+        listaCursores.Agregar(7);
 
 
+        listaCursores.Mostrar_lista();
+
+        listaCursores.Agregar(8);
 
 
+        listaCursores.Mostrar_lista();
 
-
-
-
-
-
-
-
+        Console.WriteLine(listaCursores.ToString());
 
 
         return 0;

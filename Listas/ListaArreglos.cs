@@ -129,9 +129,9 @@ namespace Estructuras_de_datos.Listas
 
             if (Es_llena() == false)
             {
-                if (pos >= 0 && pos <= _tamanio_maximo)
+                if (pos > 0 && pos < _tamanio_maximo)
                 {
-                    for (int i = _capacidad - 1; i >= pos && i >= 0; i--)
+                    for (int i = _capacidad - 1; i >= pos-1 && i > 0; i--)
                     {
                         _valores[i + 1] = _valores[i];
                     }
@@ -167,6 +167,22 @@ namespace Estructuras_de_datos.Listas
                 }
                 Console.Write("]\n");
             }
+        }
+
+
+        public T[] To_array()
+        {
+            T[] arreglo = new T[_capacidad];
+            if (_capacidad > 0)
+            {
+                
+                for (int i = 0; i < _capacidad; i++)
+                {
+                    arreglo[i] = _valores[i];
+                }
+            }
+
+            return arreglo;
         }
 
         public IEnumerator GetEnumerator()

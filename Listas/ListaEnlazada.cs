@@ -285,6 +285,21 @@ namespace Estructuras_de_datos.Listas
             
         }
 
+        public T[] To_array()
+        {
+            T[] arreglo = new T[_capacidad];
+            Nodo<T>? aux = _inicio;
+            int i = 0;
+            while (aux != null)
+            {
+                arreglo[i] = aux._datos!;
+                aux = aux.SiguienteNodo;
+                i++;
+            }
+            return arreglo;
+        }
+
+
 
         public IEnumerator GetEnumerator()
         {

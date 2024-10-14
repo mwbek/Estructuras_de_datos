@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estructuras_de_datos", "Estructuras_de_datos.csproj", "{6D0F7631-5FE2-4FFB-80DC-1BDC684C1486}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Estructuras_de_datos", "Estructuras_de_datos.csproj", "{6D0F7631-5FE2-4FFB-80DC-1BDC684C1486}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

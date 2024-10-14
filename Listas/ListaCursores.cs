@@ -31,14 +31,14 @@ namespace Estructuras_de_datos.Listas
             for (int i = 0;i < _cursor.Length; i++)
             {
                 //Inicializo el nodo
-                _cursor[i] = new Nodo<T> { _datos = default};
+                _cursor[i] = new Nodo<T> { _datos = default!};
                 _cursor[i].SiguientePos = i + 1;
             }
 
             //Inicializo las variables
             _inicio = _NULO; //El inicio no tiene ningun valor
             _libre = 0; //La primer posicion esta libre
-            _cursor[_tamanio_maximo - 1].SiguientePos = _NULO; //El ultimo elemento es nulo
+            _cursor[_tamanio_maximo-1].SiguientePos = _NULO; //El ultimo elemento es nulo
 
         }
         public ListaCursores(int capacidad)
@@ -70,7 +70,7 @@ namespace Estructuras_de_datos.Listas
             return _cantidad == _tamanio_maximo;
         }
 
-
+        //Agrego al final de la lista
         public void Agregar(T elemento)
         {
             if (EsLleno()) return;
@@ -103,9 +103,39 @@ namespace Estructuras_de_datos.Listas
             _cantidad++;
         }
 
+
         public void Borrar(int pos)
         {
-            throw new NotImplementedException();
+            if (pos <= 0 || pos >= _tamanio_maximo) return;
+            if (EsLleno()) return;
+
+            int aux = _inicio;
+
+            //Caso 1: Pos 0
+            if(pos == 1)
+            {
+                _inicio = _cursor[_inicio].SiguientePos;
+                _cursor[aux].SiguientePos = _libre;
+                _libre = aux;
+            }
+            //Caso 2: Cualquier otra posicion
+            else
+            {
+                for (int i = 0; i < pos - 2; i++)
+                {
+                    aux = _cursor[aux].SiguientePos;
+                }
+
+                //Cuando sale del bucle esta una posicion atras de la posicion que tengo que borrar
+                int aux2 = _cursor[aux].SiguientePos; //Pos a borrar
+                _cursor[aux].SiguientePos = _cursor[aux2].SiguientePos;
+                _cursor[aux2].SiguientePos = _libre;
+                _libre = aux2;
+            }
+            
+
+
+            _cantidad--;
         }
 
         public void BorrarTodos(T elemento)
@@ -126,10 +156,14 @@ namespace Estructuras_de_datos.Listas
         public void Mostrar_lista()
         {
             Console.Write("Lista Cursores: [ ");
-            for (int i = 0; i < _cantidad; i++)
+            int actual = _inicio;
+            while(actual != _NULO)
             {
-                Console.Write(_cursor[i]._datos + " ");
+                Console.Write(_cursor[actual]._datos + " ");
+                actual = _cursor[actual].SiguientePos;
             }
+                
+            
             Console.Write("]\n");
         }
 
