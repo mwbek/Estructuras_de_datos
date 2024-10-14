@@ -22,21 +22,6 @@ class Program
         //l.Agregar(11);
 
 
-        //Console.Write("Lista original: ");
-        //l.Mostrar_lista();
-        //Console.WriteLine("=======================================");
-        //l.Borrar(0);
-        //Console.WriteLine("Test 01\n Borrado pos 0");
-        //l.Mostrar_lista();
-        //Console.WriteLine("=======================================");
-        //l.Borrar(3);
-        //Console.WriteLine("Test 02\n Borrado pos 3");
-        //l.Mostrar_lista();
-        //Console.WriteLine("=======================================");
-        //l.Borrar(l.Capacidad-1);
-        //Console.WriteLine("Test 03\n Borrado pos final");
-        //l.Mostrar_lista();
-        //Console.WriteLine("=======================================");
         //l.Insertar(11,0);
         //Console.WriteLine("Test 04\n Insertar pos 0");
         //l.Mostrar_lista();

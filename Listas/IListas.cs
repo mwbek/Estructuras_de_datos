@@ -1,5 +1,4 @@
-﻿using Estructuras_de_datos.Tipo_de_dato;
-using System.Collections;
+﻿using System.Collections;
 
 namespace Estructuras_de_datos.Listas
 {

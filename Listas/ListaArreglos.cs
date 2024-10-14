@@ -1,5 +1,4 @@
-﻿using Estructuras_de_datos.Tipo_de_dato;
-using System.Collections;
+﻿using System.Collections;
 
 namespace Estructuras_de_datos.Listas
 {
@@ -100,7 +99,7 @@ namespace Estructuras_de_datos.Listas
                 {
                     T x = _valores[i];
 
-                    if (x!= null && x.Equals(elemento)) return x;
+                    if (x != null && x.Equals(elemento)) return x;
                 }
             }
 
@@ -113,9 +112,9 @@ namespace Estructuras_de_datos.Listas
 
             if (Es_vacia() == false)
             {
-                if (pos >= 0 && pos < _capacidad)
+                if (pos > 0 && pos <= _capacidad)
                 {
-                    for (int i = pos; i < _capacidad - 1; i++)
+                    for (int i = pos - 1; i < _capacidad - 2; i++)
                     {
                         _valores[i] = _valores[i + 1];
                     }
@@ -131,11 +130,17 @@ namespace Estructuras_de_datos.Listas
             {
                 if (pos > 0 && pos < _tamanio_maximo)
                 {
-                    for (int i = _capacidad - 1; i >= pos-1 && i > 0; i--)
+                    if (pos == 1)
+                    {
+                        //Muevo todo a la derecha
+
+                    }
+
+                    for (int i = _capacidad - 1; i >= pos && i > 0; i--)
                     {
                         _valores[i + 1] = _valores[i];
                     }
-                    _valores[pos] = elemento;
+                    _valores[pos - 1] = elemento;
                     _capacidad++;
                 }
 
@@ -175,7 +180,7 @@ namespace Estructuras_de_datos.Listas
             T[] arreglo = new T[_capacidad];
             if (_capacidad > 0)
             {
-                
+
                 for (int i = 0; i < _capacidad; i++)
                 {
                     arreglo[i] = _valores[i];
@@ -195,7 +200,7 @@ namespace Estructuras_de_datos.Listas
     {
         private int _posicion_actual;
         private readonly ListaArreglos<T> _lista;
-        
+
         public ListaArreglos_Iterador(ListaArreglos<T> lista)
         {
             _lista = lista;
@@ -216,6 +221,6 @@ namespace Estructuras_de_datos.Listas
 
         Object? IEnumerator.Current => Current;
 
-        
+
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 
 namespace Estructuras_de_datos.Listas
 {
@@ -28,17 +23,17 @@ namespace Estructuras_de_datos.Listas
             _cursor = new Nodo<T>[_tamanio_maximo];
 
             //Encadeno todos los nodos libres
-            for (int i = 0;i < _cursor.Length; i++)
+            for (int i = 0; i < _cursor.Length; i++)
             {
                 //Inicializo el nodo
-                _cursor[i] = new Nodo<T> { _datos = default!};
+                _cursor[i] = new Nodo<T> { _datos = default! };
                 _cursor[i].SiguientePos = i + 1;
             }
 
             //Inicializo las variables
             _inicio = _NULO; //El inicio no tiene ningun valor
             _libre = 0; //La primer posicion esta libre
-            _cursor[_tamanio_maximo-1].SiguientePos = _NULO; //El ultimo elemento es nulo
+            _cursor[_tamanio_maximo - 1].SiguientePos = _NULO; //El ultimo elemento es nulo
 
         }
         public ListaCursores(int capacidad)
@@ -83,7 +78,7 @@ namespace Estructuras_de_datos.Listas
 
 
             //Caso 1: Primer elemento
-            if(_inicio == _NULO)
+            if (_inicio == _NULO)
             {
                 //Aca no guardo nodos sino que la posicion de cada nodo
                 _inicio = p;
@@ -112,7 +107,7 @@ namespace Estructuras_de_datos.Listas
             int aux = _inicio;
 
             //Caso 1: Pos 0
-            if(pos == 1)
+            if (pos == 1)
             {
                 _inicio = _cursor[_inicio].SiguientePos;
                 _cursor[aux].SiguientePos = _libre;
@@ -132,7 +127,7 @@ namespace Estructuras_de_datos.Listas
                 _cursor[aux2].SiguientePos = _libre;
                 _libre = aux2;
             }
-            
+
 
 
             _cantidad--;
@@ -157,13 +152,13 @@ namespace Estructuras_de_datos.Listas
         {
             Console.Write("Lista Cursores: [ ");
             int actual = _inicio;
-            while(actual != _NULO)
+            while (actual != _NULO)
             {
                 Console.Write(_cursor[actual]._datos + " ");
                 actual = _cursor[actual].SiguientePos;
             }
-                
-            
+
+
             Console.Write("]\n");
         }
 

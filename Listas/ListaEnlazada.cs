@@ -1,10 +1,9 @@
-﻿using Estructuras_de_datos.Tipo_de_dato;
-using System.Collections;
+﻿using System.Collections;
 
 namespace Estructuras_de_datos.Listas
 {
 
-    public class ListaEnlazada<T> :  IListas<T>, IEnumerable
+    public class ListaEnlazada<T> : IListas<T>, IEnumerable
     {
 
         private int _capacidad;
@@ -57,7 +56,7 @@ namespace Estructuras_de_datos.Listas
                     throw new ArgumentOutOfRangeException("Index fuera de rango");
                 }
 
-                
+
             }
         }
 
@@ -88,7 +87,7 @@ namespace Estructuras_de_datos.Listas
 
 
             //Si el inicio es nulo, lo agrego primero
-            if(_inicio == null)
+            if (_inicio == null)
             {
                 _inicio = nuevo_nodo;
 
@@ -114,10 +113,10 @@ namespace Estructuras_de_datos.Listas
         public void Borrar(int pos)
         {
             //Si la posicion no es valida, salgo de la funcion
-            if (pos < 0 || pos >= _capacidad) return;
+            if (pos <= 0 || pos > _capacidad) return;
             if (Es_vacia() || _inicio == null) return;
             //Caso 1: Posicion 0
-            if (pos == 0)
+            if (pos == 1)
             {
                 //1) Muevo el segundo nodo al inicio
                 //2) Libero el nodo que elimino
@@ -133,7 +132,7 @@ namespace Estructuras_de_datos.Listas
 
                 Nodo<T>? aux = _inicio;
 
-                for (int i = 0; i < pos - 1; i++)
+                for (int i = 0; i < pos - 2; i++)
                 {
                     if (aux.SiguienteNodo == null) return;
                     aux = aux.SiguienteNodo;
@@ -156,11 +155,11 @@ namespace Estructuras_de_datos.Listas
         public void BorrarTodos(T elemento)
         {
 
-            if(Es_vacia() || _inicio == null) return;
+            if (Es_vacia() || _inicio == null) return;
             Nodo<T>? actual = _inicio;
 
             //Caso 1: El primer elemento se debe borrar
-            if(actual != null && actual._datos!.Equals(elemento))
+            if (actual != null && actual._datos!.Equals(elemento))
             {
                 _inicio = actual.SiguienteNodo;
                 actual = _inicio;
@@ -181,7 +180,7 @@ namespace Estructuras_de_datos.Listas
                 else
                 {
                     actual = actual?.SiguienteNodo;
-                }                
+                }
             }
         }
 
@@ -191,11 +190,11 @@ namespace Estructuras_de_datos.Listas
         public T? Buscar(T elemento)
         {
             //Validaciones
-            if(Es_vacia()) return default;
+            if (Es_vacia()) return default;
 
             Nodo<T>? aux = _inicio;
 
-            while(aux != null)
+            while (aux != null)
             {
                 T? te = aux._datos;
                 if (te != null && te.Equals(elemento)) return te;
@@ -222,13 +221,13 @@ namespace Estructuras_de_datos.Listas
             Nodo<T>? aux = _inicio;
 
             //Caso 1: La posicion excede la cantidad de elementos, agrego al final
-            if(pos >= _capacidad)
+            if (pos >= _capacidad)
             {
                 Agregar(elemento);
                 return;
             }
             //Caso 2: Inserto en la posicion 0
-            else if(pos == 0)
+            else if (pos == 0)
             {
                 nuevo_nodo.SiguienteNodo = _inicio;
                 _inicio = nuevo_nodo;
@@ -237,14 +236,14 @@ namespace Estructuras_de_datos.Listas
             else
             {
                 //Me muevo hasta llegar al nodo anterior a donde tengo que insertar
-                for(int i = 0; i < pos - 1; i++)
+                for (int i = 0; i < pos - 1; i++)
                 {
                     aux = aux?.SiguienteNodo;
                 }
 
                 //El nodo donde estoy debe apuntar al nuevo, y el nuevo a donde esta apuntando
                 //el nodo anterior
-                
+
                 nuevo_nodo.SiguienteNodo = aux?.SiguienteNodo;
                 if (aux == null) return;
                 aux.SiguienteNodo = nuevo_nodo;
@@ -263,11 +262,11 @@ namespace Estructuras_de_datos.Listas
             for (int i = 0; i < pos; i++)
             {
 
-               actual = actual?.SiguienteNodo;
-                
-                
+                actual = actual?.SiguienteNodo;
+
+
             }
-            if(actual == null) return default;
+            if (actual == null) return default;
             return actual._datos;
         }
 
@@ -282,7 +281,7 @@ namespace Estructuras_de_datos.Listas
                 aux = aux.SiguienteNodo;
             }
             Console.Write("]\n");
-            
+
         }
 
         public T[] To_array()
@@ -320,7 +319,7 @@ namespace Estructuras_de_datos.Listas
         {
             get
             {
-                if(_posicion_actual != null)
+                if (_posicion_actual != null)
                 {
                     return _posicion_actual._datos;
                 }
@@ -341,7 +340,7 @@ namespace Estructuras_de_datos.Listas
 
         public bool MoveNext()
         {
-            if( _posicion_actual == null)
+            if (_posicion_actual == null)
             {
                 _posicion_actual = _inicio;
             }
