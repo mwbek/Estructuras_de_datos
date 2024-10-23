@@ -137,13 +137,35 @@ namespace Estructuras_de_datos.Listas
 
             int actual = _inicio;
 
-            while(actual != _NULO && _cursor[actual].SiguientePos != _NULO)
+            //Caso 1: El primer elemento se debe borrar
+            if (actual != _NULO && _cursor[actual]._datos!.Equals(elemento))
             {
-                T valor = _cursor[actual]._datos;
+                _inicio = _cursor[actual].SiguientePos;
+                _cursor[actual].SiguientePos = _libre;
+                _libre = actual;
+                _cantidad--;
+            }
+
+            //Caso 2: El resto de elementos
+            while (actual != _NULO && _cursor[actual].SiguientePos != _NULO)
+            {
+
+                int siguiente = _cursor[actual].SiguientePos;
+                T valor = _cursor[siguiente]._datos;
                 if (valor!.Equals(elemento))
                 {
-                    int aux = _cursor[actual].SiguientePos;
+
+                    _cursor[actual].SiguientePos = _cursor[siguiente].SiguientePos;
+                    _cursor[siguiente].SiguientePos = _libre;
+                    _libre = siguiente;
+                    _cantidad--;
+
                 }
+                else
+                {
+                    actual = _cursor[actual].SiguientePos;
+                }
+                
             }
         }
 
@@ -167,7 +189,39 @@ namespace Estructuras_de_datos.Listas
 
         public void Insertar(T elemento, int pos)
         {
-            throw new NotImplementedException();
+
+            if(EsLleno()) return;
+            if(pos < 1 || pos > _tamanio_maximo) return;
+
+            int actual = _inicio;
+
+            //Pos libre
+            int pos_libre = _libre;
+            _libre = _cursor[_libre].SiguientePos;
+
+            //Cargo el nodo en la lista
+            _cursor[pos_libre]._datos = elemento;
+            _cursor[pos_libre].SiguientePos = _NULO;
+
+
+            //Caso 1: Pos 1
+            if (pos == 1)
+            {
+                _cursor[pos_libre].SiguientePos = actual;
+                _inicio = pos_libre;
+            }
+            else
+            {
+                int aux = _inicio;
+                for (int i = 0; i < pos-2; i++)
+                {
+                    aux = _cursor[aux].SiguientePos;
+                }
+
+                _cursor[pos_libre].SiguientePos = _cursor[aux].SiguientePos;
+                _cursor[aux].SiguientePos = pos_libre;
+            }
+            _cantidad++;
         }
 
         public void Mostrar_lista()
@@ -188,6 +242,22 @@ namespace Estructuras_de_datos.Listas
         {
             throw new NotImplementedException();
         }
+
+        public T[] To_array()
+        {
+            T[] arreglo = new T[_cantidad];
+            int actual = _inicio;
+            int i = 0;
+            while (actual != _NULO)
+            {
+                arreglo[i] = _cursor[actual]._datos;
+                actual = _cursor[actual].SiguientePos;
+                i++;
+            }
+            return arreglo;
+        }
+
+
 
         IEnumerator IEnumerable.GetEnumerator()
         {
