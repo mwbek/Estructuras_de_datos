@@ -97,8 +97,6 @@ namespace Estructuras_de_datos.Listas
 
             _cantidad++;
         }
-
-
         public void Borrar(int pos)
         {
             if (pos <= 0 || pos >= _tamanio_maximo) return;
@@ -135,12 +133,36 @@ namespace Estructuras_de_datos.Listas
 
         public void BorrarTodos(T elemento)
         {
-            throw new NotImplementedException();
+            if (EsVacio()) return;
+
+            int actual = _inicio;
+
+            while(actual != _NULO && _cursor[actual].SiguientePos != _NULO)
+            {
+                T valor = _cursor[actual]._datos;
+                if (valor!.Equals(elemento))
+                {
+                    int aux = _cursor[actual].SiguientePos;
+                }
+            }
         }
 
         public T? Buscar(T elemento)
         {
-            throw new NotImplementedException();
+            if (EsVacio()) return default;
+
+            int actual = _inicio;
+
+            while (actual != _NULO)
+            {
+                T valor = _cursor[actual]._datos;
+                if (valor!.Equals(elemento))
+                {
+                    return valor;
+                }
+                actual = _cursor[actual].SiguientePos;
+            }
+            return default;
         }
 
         public void Insertar(T elemento, int pos)
