@@ -220,14 +220,9 @@ namespace Estructuras_de_datos.Listas
 
             Nodo<T>? aux = _inicio;
 
-            //Caso 1: La posicion excede la cantidad de elementos, agrego al final
-            if (pos >= _capacidad)
-            {
-                Agregar(elemento);
-                return;
-            }
-            //Caso 2: Inserto en la posicion 0
-            else if (pos == 0)
+
+            //Caso 1: Inserto en la posicion 0
+            if (pos == 1)
             {
                 nuevo_nodo.SiguienteNodo = _inicio;
                 _inicio = nuevo_nodo;
@@ -236,7 +231,7 @@ namespace Estructuras_de_datos.Listas
             else
             {
                 //Me muevo hasta llegar al nodo anterior a donde tengo que insertar
-                for (int i = 0; i < pos - 1; i++)
+                for (int i = 0; i < pos-2; i++)
                 {
                     aux = aux?.SiguienteNodo;
                 }

@@ -128,15 +128,11 @@ namespace Estructuras_de_datos.Listas
 
             if (Es_llena() == false)
             {
-                if (pos > 0 && pos < _tamanio_maximo)
+                if (pos > 0 && pos <= _tamanio_maximo)
                 {
-                    if (pos == 1)
-                    {
-                        //Muevo todo a la derecha
+                    //
 
-                    }
-
-                    for (int i = _capacidad - 1; i >= pos && i > 0; i--)
+                    for (int i = _capacidad-1; i >= pos -1; i--)
                     {
                         _valores[i + 1] = _valores[i];
                     }
