@@ -5,8 +5,6 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Estructuras_de_datos", "Estructuras_de_datos.csproj", "{6D0F7631-5FE2-4FFB-80DC-1BDC684C1486}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest_Estructuras_de_datos", "..\UnitTest_Estructuras_de_datos\UnitTest_Estructuras_de_datos.csproj", "{929DACD9-4340-4781-82B4-304AB1E26F37}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{6D0F7631-5FE2-4FFB-80DC-1BDC684C1486}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D0F7631-5FE2-4FFB-80DC-1BDC684C1486}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D0F7631-5FE2-4FFB-80DC-1BDC684C1486}.Release|Any CPU.Build.0 = Release|Any CPU
-		{929DACD9-4340-4781-82B4-304AB1E26F37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{929DACD9-4340-4781-82B4-304AB1E26F37}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{929DACD9-4340-4781-82B4-304AB1E26F37}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{929DACD9-4340-4781-82B4-304AB1E26F37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
